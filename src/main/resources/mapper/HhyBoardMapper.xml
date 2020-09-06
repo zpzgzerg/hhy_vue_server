@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.zpzgzerg.hhy.mapper.HhyBoardMapper">
+  <select id="selectList" resultType="xyz.zpzgzerg.hhy.dto.HhyBoardDto">
+      SELECT * FROM TB_HHY_BOARD ORDER BY id DESC
+  </select>
+
+  <select id="select" resultType="xyz.zpzgzerg.hhy.dto.HhyBoardDto" parameterType="Integer">
+    SELECT * FROM TB_HHY_BOARD
+    <where>
+      <if test="id != null and id != ''">
+        id = #{id}
+      </if>
+    </where>
+  </select>
+
+  <insert id="insert" parameterType="xyz.zpzgzerg.hhy.dto.HhyBoardDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO TB_HHY_BOARD (name, email, title, contents, reg_dt)
+    VALUES (#{name}, #{email}, #{title}, #{contents}, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
+  </insert>
+
+  <update id="update" parameterType="xyz.zpzgzerg.hhy.dto.HhyBoardDto">
+    UPDATE TB_HHY_BOARD
+    SET name = #{name}, email = #{email}, title = #{title}, contents = #{contents}
+    WHERE id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="Integer">
+    DELETE FROM TB_HHY_BOARD WHERE id = #{id}
+  </delete>
+
+</mapper>
